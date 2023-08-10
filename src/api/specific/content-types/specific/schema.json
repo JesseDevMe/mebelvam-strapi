@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "specifics",
+  "info": {
+    "singularName": "specific",
+    "pluralName": "specifics",
+    "displayName": "Specific"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

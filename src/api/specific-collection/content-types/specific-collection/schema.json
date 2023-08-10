@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "specific_collections",
+  "info": {
+    "singularName": "specific-collection",
+    "pluralName": "specific-collections",
+    "displayName": "Specific_collection"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "specifics": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::specific.specific"
+    }
+  }
+}
