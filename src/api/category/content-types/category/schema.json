@@ -21,6 +21,9 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::specific-collection.specific-collection"
+    },
+    "ordinal_number": {
+      "type": "integer"
     }
   }
 }

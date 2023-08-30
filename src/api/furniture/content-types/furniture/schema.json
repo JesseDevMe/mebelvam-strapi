@@ -4,7 +4,8 @@
   "info": {
     "singularName": "furniture",
     "pluralName": "furnitures",
-    "displayName": "Furniture"
+    "displayName": "Furniture",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -28,15 +29,15 @@
       "component": "fields.size"
     },
     "images": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true,
-      "required": true
+      ]
     },
     "color": {
       "type": "relation",
@@ -67,6 +68,17 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::specific.specific"
+    },
+    "collection": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::collection.collection",
+      "inversedBy": "furnitures"
+    },
+    "modules": {
+      "type": "component",
+      "repeatable": true,
+      "component": "fields.module-info"
     }
   }
 }
