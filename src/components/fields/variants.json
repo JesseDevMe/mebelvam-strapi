@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_fields_variants",
+  "info": {
+    "displayName": "Variants",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "color": {
+      "type": "string",
+      "required": true
+    },
+    "attributes": {
+      "type": "component",
+      "repeatable": true,
+      "component": "fields.size-and-price",
+      "required": true
+    }
+  }
+}

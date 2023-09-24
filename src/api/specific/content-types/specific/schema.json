@@ -4,7 +4,8 @@
   "info": {
     "singularName": "specific",
     "pluralName": "specifics",
-    "displayName": "Specific"
+    "displayName": "Specific",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -13,7 +14,20 @@
   "attributes": {
     "name": {
       "type": "string",
-      "required": true
+      "required": true,
+      "unique": true
+    },
+    "specific_values": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::specific-value.specific-value",
+      "mappedBy": "specific"
+    },
+    "subcategories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::subcategory.subcategory",
+      "inversedBy": "specifics"
     }
   }
 }

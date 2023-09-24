@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_fields_module_infos",
+  "info": {
+    "displayName": "modules",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "furniture": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::furniture.furniture"
+    },
+    "count": {
+      "type": "integer",
+      "default": 1,
+      "required": true,
+      "min": 1
+    }
+  }
+}

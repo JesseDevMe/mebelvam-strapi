@@ -17,13 +17,21 @@
       "required": true,
       "unique": true
     },
-    "specific_collections": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::specific-collection.specific-collection"
-    },
     "ordinal_number": {
       "type": "integer"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

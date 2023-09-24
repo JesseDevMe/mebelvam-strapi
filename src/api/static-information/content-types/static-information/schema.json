@@ -1,0 +1,37 @@
+{
+  "kind": "singleType",
+  "collectionName": "static_informations",
+  "info": {
+    "singularName": "static-information",
+    "pluralName": "static-informations",
+    "displayName": "Static_information",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "telephone_number": {
+      "type": "string",
+      "required": true
+    },
+    "storage_schedule": {
+      "type": "string",
+      "required": true
+    },
+    "vk_link": {
+      "type": "string",
+      "required": false
+    },
+    "telegram_link": {
+      "type": "string"
+    },
+    "viber_link": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    }
+  }
+}

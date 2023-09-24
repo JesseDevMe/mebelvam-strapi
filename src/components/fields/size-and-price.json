@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_fields_size_and_prices",
+  "info": {
+    "displayName": "Size and Price",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "price": {
+      "type": "integer",
+      "required": true
+    },
+    "width": {
+      "type": "integer",
+      "required": true
+    },
+    "depth": {
+      "type": "integer"
+    },
+    "height": {
+      "type": "integer",
+      "required": true
+    }
+  }
+}

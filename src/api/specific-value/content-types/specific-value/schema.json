@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "specific_values",
+  "info": {
+    "singularName": "specific-value",
+    "pluralName": "specific-values",
+    "displayName": "Specific_value"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "value": {
+      "type": "string",
+      "required": true
+    },
+    "specific": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::specific.specific",
+      "inversedBy": "specific_values"
+    }
+  }
+}

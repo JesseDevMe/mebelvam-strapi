@@ -4,7 +4,8 @@
   "info": {
     "singularName": "subcategory",
     "pluralName": "subcategories",
-    "displayName": "Subcategory"
+    "displayName": "Subcategory",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -16,15 +17,32 @@
       "required": true,
       "unique": false
     },
+    "ordinal_number": {
+      "type": "integer"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
     "category": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::category.category"
     },
-    "specific_collections": {
+    "specifics": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::specific-collection.specific-collection"
+      "relation": "manyToMany",
+      "target": "api::specific.specific",
+      "mappedBy": "subcategories"
     }
   }
 }

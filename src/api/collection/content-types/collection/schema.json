@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "collections",
+  "info": {
+    "singularName": "collection",
+    "pluralName": "collections",
+    "displayName": "Collection",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "furnitures": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::furniture.furniture",
+      "mappedBy": "collection"
+    }
+  }
+}
