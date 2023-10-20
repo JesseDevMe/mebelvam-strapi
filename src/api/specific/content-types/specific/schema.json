@@ -4,7 +4,7 @@
   "info": {
     "singularName": "specific",
     "pluralName": "specifics",
-    "displayName": "Specific",
+    "displayName": "Filter",
     "description": ""
   },
   "options": {
@@ -28,6 +28,10 @@
       "relation": "manyToMany",
       "target": "api::subcategory.subcategory",
       "inversedBy": "specifics"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
     }
   }
 }

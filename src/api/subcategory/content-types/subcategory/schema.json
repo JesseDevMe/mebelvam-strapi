@@ -43,6 +43,17 @@
       "relation": "manyToMany",
       "target": "api::specific.specific",
       "mappedBy": "subcategories"
+    },
+    "default_filters": {
+      "type": "customField",
+      "options": [
+        "Цена:price",
+        "Ширина:width",
+        "Высота:height",
+        "Глубина:depth",
+        "Производитель:manufacturer"
+      ],
+      "customField": "plugin::multi-select.multi-select"
     }
   }
 }

@@ -4,7 +4,8 @@
   "info": {
     "singularName": "specific-value",
     "pluralName": "specific-values",
-    "displayName": "Specific_value"
+    "displayName": "Filter_value",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true

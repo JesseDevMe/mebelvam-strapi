@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "manufacturers",
+  "collectionName": "colors",
   "info": {
-    "singularName": "manufacturer",
-    "pluralName": "manufacturers",
-    "displayName": "Manufacturer"
+    "singularName": "color",
+    "pluralName": "colors",
+    "displayName": "Color"
   },
   "options": {
     "draftAndPublish": true
@@ -18,9 +18,9 @@
     },
     "furnitures": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::furniture.furniture",
-      "mappedBy": "manufacturer"
+      "inversedBy": "colors"
     }
   }
 }

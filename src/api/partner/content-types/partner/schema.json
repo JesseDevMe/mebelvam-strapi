@@ -4,7 +4,8 @@
   "info": {
     "singularName": "partner",
     "pluralName": "partners",
-    "displayName": "Partner"
+    "displayName": "Partner",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -16,17 +17,17 @@
       "required": true,
       "unique": true
     },
-    "title": {
+    "description": {
       "type": "richtext",
       "required": true
     },
     "image": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }
