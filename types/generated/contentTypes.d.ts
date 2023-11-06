@@ -23,6 +23,7 @@ export interface AdminPermission extends Schema.CollectionType {
       Attribute.SetMinMaxLength<{
         minLength: 1;
       }>;
+    actionParameters: Attribute.JSON & Attribute.DefaultTo<{}>;
     subject: Attribute.String &
       Attribute.SetMinMaxLength<{
         minLength: 1;
@@ -481,6 +482,50 @@ export interface PluginUploadFolder extends Schema.CollectionType {
   };
 }
 
+export interface PluginI18NLocale extends Schema.CollectionType {
+  collectionName: 'i18n_locale';
+  info: {
+    singularName: 'locale';
+    pluralName: 'locales';
+    collectionName: 'locales';
+    displayName: 'Locale';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetMinMax<{
+        min: 1;
+        max: 50;
+      }>;
+    code: Attribute.String & Attribute.Unique;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUsersPermissionsPermission
   extends Schema.CollectionType {
   collectionName: 'up_permissions';
@@ -614,94 +659,25 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
+    favorites: Attribute.Relation<
       'plugin::users-permissions.user',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface PluginI18NLocale extends Schema.CollectionType {
-  collectionName: 'i18n_locale';
-  info: {
-    singularName: 'locale';
-    pluralName: 'locales';
-    collectionName: 'locales';
-    displayName: 'Locale';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    name: Attribute.String &
-      Attribute.SetMinMax<{
-        min: 1;
-        max: 50;
-      }>;
-    code: Attribute.String & Attribute.Unique;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::i18n.locale',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'plugin::i18n.locale',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiCartCart extends Schema.CollectionType {
-  collectionName: 'carts';
-  info: {
-    singularName: 'cart';
-    pluralName: 'carts';
-    displayName: 'Cart';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    user: Attribute.Relation<
-      'api::cart.cart',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    furnitures: Attribute.Relation<
-      'api::cart.cart',
       'oneToMany',
       'api::furniture.furniture'
     >;
+    cart: Attribute.Component<'fields.cart', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::cart.cart', 'oneToOne', 'admin::user'> &
+    createdBy: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
-    updatedBy: Attribute.Relation<'api::cart.cart', 'oneToOne', 'admin::user'> &
+    updatedBy: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
   };
 }
@@ -719,13 +695,8 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
   };
   attributes: {
     title: Attribute.String & Attribute.Required & Attribute.Unique;
-    specific_collections: Attribute.Relation<
-      'api::category.category',
-      'oneToMany',
-      'api::specific-collection.specific-collection'
-    >;
     ordinal_number: Attribute.Integer;
-    slug: Attribute.UID<'api::category.category', 'title'>;
+    slug: Attribute.UID<'api::category.category', 'title'> & Attribute.Required;
     image: Attribute.Media & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -763,6 +734,18 @@ export interface ApiCollectionCollection extends Schema.CollectionType {
       'oneToMany',
       'api::furniture.furniture'
     >;
+    description: Attribute.RichText;
+    images: Attribute.Media & Attribute.Required;
+    manufacturer: Attribute.Relation<
+      'api::collection.collection',
+      'oneToOne',
+      'api::manufacturer.manufacturer'
+    >;
+    materials: Attribute.Relation<
+      'api::collection.collection',
+      'oneToMany',
+      'api::material.material'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -787,12 +770,20 @@ export interface ApiColorColor extends Schema.CollectionType {
     singularName: 'color';
     pluralName: 'colors';
     displayName: 'Color';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     name: Attribute.String & Attribute.Required & Attribute.Unique;
+    furnitures: Attribute.Relation<
+      'api::color.color',
+      'manyToMany',
+      'api::furniture.furniture'
+    >;
+    color: Attribute.String &
+      Attribute.CustomField<'plugin::color-picker.color'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -856,39 +847,17 @@ export interface ApiFurnitureFurniture extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String & Attribute.Required;
-    price: Attribute.Integer & Attribute.Required;
     description: Attribute.RichText;
-    Size: Attribute.Component<'fields.size'>;
     images: Attribute.Media & Attribute.Required;
-    color: Attribute.Relation<
+    materials: Attribute.Relation<
       'api::furniture.furniture',
-      'oneToOne',
-      'api::color.color'
-    >;
-    material: Attribute.Relation<
-      'api::furniture.furniture',
-      'oneToOne',
+      'oneToMany',
       'api::material.material'
     >;
     manufacturer: Attribute.Relation<
       'api::furniture.furniture',
-      'oneToOne',
+      'manyToOne',
       'api::manufacturer.manufacturer'
-    >;
-    category: Attribute.Relation<
-      'api::furniture.furniture',
-      'oneToOne',
-      'api::category.category'
-    >;
-    subcategory: Attribute.Relation<
-      'api::furniture.furniture',
-      'oneToOne',
-      'api::subcategory.subcategory'
-    >;
-    specifics: Attribute.Relation<
-      'api::furniture.furniture',
-      'oneToMany',
-      'api::specific.specific'
     >;
     collection: Attribute.Relation<
       'api::furniture.furniture',
@@ -896,6 +865,23 @@ export interface ApiFurnitureFurniture extends Schema.CollectionType {
       'api::collection.collection'
     >;
     modules: Attribute.Component<'fields.module-info', true>;
+    subcategory: Attribute.Relation<
+      'api::furniture.furniture',
+      'oneToOne',
+      'api::subcategory.subcategory'
+    >;
+    variants: Attribute.Component<'fields.variants', true> & Attribute.Required;
+    specific_values: Attribute.Relation<
+      'api::furniture.furniture',
+      'oneToMany',
+      'api::specific-value.specific-value'
+    >;
+    under_price: Attribute.BigInteger & Attribute.Required;
+    colors: Attribute.Relation<
+      'api::furniture.furniture',
+      'manyToMany',
+      'api::color.color'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -959,6 +945,11 @@ export interface ApiManufacturerManufacturer extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String & Attribute.Required & Attribute.Unique;
+    furnitures: Attribute.Relation<
+      'api::manufacturer.manufacturer',
+      'oneToMany',
+      'api::furniture.furniture'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1013,13 +1004,14 @@ export interface ApiPartnerPartner extends Schema.CollectionType {
     singularName: 'partner';
     pluralName: 'partners';
     displayName: 'Partner';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     name: Attribute.String & Attribute.Required & Attribute.Unique;
-    title: Attribute.RichText & Attribute.Required;
+    description: Attribute.RichText & Attribute.Required;
     image: Attribute.Media & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1044,13 +1036,25 @@ export interface ApiSpecificSpecific extends Schema.CollectionType {
   info: {
     singularName: 'specific';
     pluralName: 'specifics';
-    displayName: 'Specific';
+    displayName: 'Filter';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String & Attribute.Required;
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    specific_values: Attribute.Relation<
+      'api::specific.specific',
+      'oneToMany',
+      'api::specific-value.specific-value'
+    >;
+    subcategories: Attribute.Relation<
+      'api::specific.specific',
+      'manyToMany',
+      'api::subcategory.subcategory'
+    >;
+    slug: Attribute.UID<'api::specific.specific', 'name'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1069,35 +1073,36 @@ export interface ApiSpecificSpecific extends Schema.CollectionType {
   };
 }
 
-export interface ApiSpecificCollectionSpecificCollection
-  extends Schema.CollectionType {
-  collectionName: 'specific_collections';
+export interface ApiSpecificValueSpecificValue extends Schema.CollectionType {
+  collectionName: 'specific_values';
   info: {
-    singularName: 'specific-collection';
-    pluralName: 'specific-collections';
-    displayName: 'Specific_collection';
+    singularName: 'specific-value';
+    pluralName: 'specific-values';
+    displayName: 'Filter_value';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     name: Attribute.String & Attribute.Required;
-    specifics: Attribute.Relation<
-      'api::specific-collection.specific-collection',
-      'oneToMany',
+    value: Attribute.String & Attribute.Required;
+    specific: Attribute.Relation<
+      'api::specific-value.specific-value',
+      'manyToOne',
       'api::specific.specific'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::specific-collection.specific-collection',
+      'api::specific-value.specific-value',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::specific-collection.specific-collection',
+      'api::specific-value.specific-value',
       'oneToOne',
       'admin::user'
     > &
@@ -1148,22 +1153,39 @@ export interface ApiSubcategorySubcategory extends Schema.CollectionType {
     singularName: 'subcategory';
     pluralName: 'subcategories';
     displayName: 'Subcategory';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     title: Attribute.String & Attribute.Required;
+    ordinal_number: Attribute.Integer;
+    image: Attribute.Media & Attribute.Required;
+    slug: Attribute.UID<'api::subcategory.subcategory', 'title'> &
+      Attribute.Required;
     category: Attribute.Relation<
       'api::subcategory.subcategory',
       'oneToOne',
       'api::category.category'
     >;
-    specific_collections: Attribute.Relation<
+    specifics: Attribute.Relation<
       'api::subcategory.subcategory',
-      'oneToMany',
-      'api::specific-collection.specific-collection'
+      'manyToMany',
+      'api::specific.specific'
     >;
+    default_filters: Attribute.JSON &
+      Attribute.CustomField<
+        'plugin::multi-select.multi-select',
+        [
+          '\u0426\u0435\u043D\u0430:price',
+          '\u0428\u0438\u0440\u0438\u043D\u0430:width',
+          '\u0412\u044B\u0441\u043E\u0442\u0430:height',
+          '\u0413\u043B\u0443\u0431\u0438\u043D\u0430:depth',
+          '\u041F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044C:manufacturer',
+          '\u0426\u0432\u0435\u0442:color'
+        ]
+      >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1182,7 +1204,7 @@ export interface ApiSubcategorySubcategory extends Schema.CollectionType {
   };
 }
 
-declare module '@strapi/strapi' {
+declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
       'admin::permission': AdminPermission;
@@ -1194,11 +1216,10 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
+      'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'plugin::i18n.locale': PluginI18NLocale;
-      'api::cart.cart': ApiCartCart;
       'api::category.category': ApiCategoryCategory;
       'api::collection.collection': ApiCollectionCollection;
       'api::color.color': ApiColorColor;
@@ -1209,7 +1230,7 @@ declare module '@strapi/strapi' {
       'api::material.material': ApiMaterialMaterial;
       'api::partner.partner': ApiPartnerPartner;
       'api::specific.specific': ApiSpecificSpecific;
-      'api::specific-collection.specific-collection': ApiSpecificCollectionSpecificCollection;
+      'api::specific-value.specific-value': ApiSpecificValueSpecificValue;
       'api::static-information.static-information': ApiStaticInformationStaticInformation;
       'api::subcategory.subcategory': ApiSubcategorySubcategory;
     }

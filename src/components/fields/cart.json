@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_fields_carts",
+  "info": {
+    "displayName": "Cart"
+  },
+  "options": {},
+  "attributes": {
+    "furniture": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::furniture.furniture"
+    },
+    "count": {
+      "type": "integer",
+      "required": true,
+      "default": 1
+    },
+    "variant_id": {
+      "type": "integer"
+    },
+    "attribute_id": {
+      "type": "integer"
+    }
+  }
+}

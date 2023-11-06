@@ -64,6 +64,16 @@
       "target": "plugin::users-permissions.role",
       "inversedBy": "users",
       "configurable": false
+    },
+    "favorites": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::furniture.furniture"
+    },
+    "cart": {
+      "type": "component",
+      "repeatable": true,
+      "component": "fields.cart"
     }
   }
 }

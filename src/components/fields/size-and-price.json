@@ -20,6 +20,9 @@
     "height": {
       "type": "integer",
       "required": true
+    },
+    "old_price": {
+      "type": "integer"
     }
   }
 }

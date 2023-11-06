@@ -51,7 +51,8 @@
         "Ширина:width",
         "Высота:height",
         "Глубина:depth",
-        "Производитель:manufacturer"
+        "Производитель:manufacturer",
+        "Цвет:color"
       ],
       "customField": "plugin::multi-select.multi-select"
     }

@@ -4,7 +4,8 @@
   "info": {
     "singularName": "color",
     "pluralName": "colors",
-    "displayName": "Color"
+    "displayName": "Color",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -21,6 +22,11 @@
       "relation": "manyToMany",
       "target": "api::furniture.furniture",
       "inversedBy": "colors"
+    },
+    "color": {
+      "type": "customField",
+      "regex": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+      "customField": "plugin::color-picker.color"
     }
   }
 }
