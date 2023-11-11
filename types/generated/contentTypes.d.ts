@@ -665,6 +665,9 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'api::furniture.furniture'
     >;
     cart: Attribute.Component<'fields.cart', true>;
+    name: Attribute.String;
+    middlename: Attribute.String;
+    telephone: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -906,6 +909,7 @@ export interface ApiHotOfferHotOffer extends Schema.CollectionType {
     singularName: 'hot-offer';
     pluralName: 'hot-offers';
     displayName: 'Hot_offer';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -915,6 +919,12 @@ export interface ApiHotOfferHotOffer extends Schema.CollectionType {
     old_price: Attribute.Integer;
     price: Attribute.Integer & Attribute.Required;
     image: Attribute.Media & Attribute.Required;
+    furniture: Attribute.Relation<
+      'api::hot-offer.hot-offer',
+      'oneToOne',
+      'api::furniture.furniture'
+    >;
+    order: Attribute.Integer & Attribute.DefaultTo<0>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1085,7 +1095,7 @@ export interface ApiSpecificValueSpecificValue extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String & Attribute.Required;
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
     value: Attribute.String & Attribute.Required;
     specific: Attribute.Relation<
       'api::specific-value.specific-value',
@@ -1129,6 +1139,7 @@ export interface ApiStaticInformationStaticInformation
     telegram_link: Attribute.String;
     viber_link: Attribute.String;
     email: Attribute.String;
+    whatsApp_link: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

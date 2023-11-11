@@ -1,7 +1,8 @@
 {
   "collectionName": "components_fields_carts",
   "info": {
-    "displayName": "Cart"
+    "displayName": "Cart",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -16,10 +17,12 @@
       "default": 1
     },
     "variant_id": {
-      "type": "integer"
+      "type": "integer",
+      "required": true
     },
     "attribute_id": {
-      "type": "integer"
+      "type": "integer",
+      "required": true
     }
   }
 }

@@ -12,14 +12,14 @@
     },
     "width": {
       "type": "integer",
-      "required": true
+      "required": false
     },
     "depth": {
       "type": "integer"
     },
     "height": {
       "type": "integer",
-      "required": true
+      "required": false
     },
     "old_price": {
       "type": "integer"

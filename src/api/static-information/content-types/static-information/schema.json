@@ -32,6 +32,9 @@
     },
     "email": {
       "type": "string"
+    },
+    "whatsApp_link": {
+      "type": "string"
     }
   }
 }

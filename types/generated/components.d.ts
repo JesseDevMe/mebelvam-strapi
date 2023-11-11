@@ -4,6 +4,7 @@ export interface FieldsCart extends Schema.Component {
   collectionName: 'components_fields_carts';
   info: {
     displayName: 'Cart';
+    description: '';
   };
   attributes: {
     furniture: Attribute.Relation<
@@ -12,8 +13,8 @@ export interface FieldsCart extends Schema.Component {
       'api::furniture.furniture'
     >;
     count: Attribute.Integer & Attribute.Required & Attribute.DefaultTo<1>;
-    variant_id: Attribute.Integer;
-    attribute_id: Attribute.Integer;
+    variant_id: Attribute.Integer & Attribute.Required;
+    attribute_id: Attribute.Integer & Attribute.Required;
   };
 }
 
@@ -56,9 +57,9 @@ export interface FieldsSizeAndPrice extends Schema.Component {
   };
   attributes: {
     price: Attribute.Integer & Attribute.Required;
-    width: Attribute.Integer & Attribute.Required;
+    width: Attribute.Integer;
     depth: Attribute.Integer;
-    height: Attribute.Integer & Attribute.Required;
+    height: Attribute.Integer;
     old_price: Attribute.Integer;
   };
 }

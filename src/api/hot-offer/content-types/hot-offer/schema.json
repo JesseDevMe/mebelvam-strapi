@@ -4,7 +4,8 @@
   "info": {
     "singularName": "hot-offer",
     "pluralName": "hot-offers",
-    "displayName": "Hot_offer"
+    "displayName": "Hot_offer",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -23,12 +24,21 @@
       "required": true
     },
     "image": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
-      "required": true
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "furniture": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::furniture.furniture"
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
     }
   }
 }
