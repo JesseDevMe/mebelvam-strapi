@@ -14,8 +14,8 @@ module.exports = ({ env }) => ({
         },
       },
       settings: {
-        defaultFrom: 'mebel-vam-next@mail.ru',
-        defaultReplyTo: 'mebel-vam-next@mail.ru',
+        defaultFrom: env('SMTP_USERNAME'),
+        defaultReplyTo: env('SMTP_USERNAME'),
       },
     },
   },
