@@ -1,0 +1,16 @@
+.idea
+.dockerignore
+.env
+.git
+.gitignore
+.cache
+.tmp
+.strapi-updater.json
+docker-compose*
+compose*
+Dockerfile*
+node_modules
+build
+dist
+LICENSE
+README.md
