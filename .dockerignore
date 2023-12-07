@@ -1,6 +1,5 @@
 .idea
 .dockerignore
-.env
 .git
 .gitignore
 .cache
